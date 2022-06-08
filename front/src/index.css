@@ -1,0 +1,83 @@
+h1 {
+    color: green;
+    font-style: italic;
+  }
+
+#root {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  color: white;
+}
+
+#app {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.vastaanotettu {
+  background-color: grey;
+  padding-top: 5px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+
+.tyonalla {
+  background-color: orange;
+  padding-top: 5px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+
+.odottaa {
+  background-color: yellow;
+  padding-top: 5px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+
+.pesula {
+  background-color: lightblue;
+  padding-top: 5px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+
+.valmis {
+  background-color: green;
+  padding-top: 5px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+
+.error {
+  color: red;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.success {
+  color: green;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
