@@ -64,7 +64,7 @@ const App = () => {
       .create(carObject)
       .then(returnedCar => {
         setCars(cars.concat(returnedCar))
-        setErrorMessage(`a new car ${carObject.registration} by ${carObject.model} added`)
+        setErrorMessage(`a new car ${carObject.registration} ${carObject.model} added`)
         setTimeout(() => {
           setErrorMessage(null)
         }, 5000)

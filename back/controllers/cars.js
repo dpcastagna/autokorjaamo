@@ -29,6 +29,7 @@ carsRouter.post('/', async (request, response, next) => {
   const car = new Car({
     registration: body.registration,
     model: body.model,
+    status: body.status,
     user: user._id,
   })
   
@@ -51,6 +52,7 @@ carsRouter.put('/:id', async (request, response, next) => {
   const car = {
     registration: body.registration,
     model: body.model,
+    status: body.status,
     user: body.user,
   }
 

@@ -17,6 +17,7 @@ const CarForm = ({ createCar }) => {
     const carObject = {
       registration: newRegistration,
       model: newModel,
+      status: 'Vastaanotettu',
     }
     createCar(carObject)
 

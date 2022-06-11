@@ -10,7 +10,7 @@ const Car = ({ car, user }) => {
     borderWidth: 1,
     marginBottom: 5,
   }
-  console.log(car.user.name, user.name)
+  //console.log(car.status)
   const [visible, setVisible] = useState(false)
   //const [likes, setLikes] = useState(blog.likes)
   const hideWhenVisible = { display: visible ? 'none' : '' }
@@ -60,7 +60,8 @@ const Car = ({ car, user }) => {
       <div style={showWhenVisible}>
         {car.registration} {car.model}
         <button onClick={toggleVisibility}>hide</button><br />
-        {car.user.name}
+        {car.user.name}<br />
+        {car.status}
         <div style={showRemove}>
           <button onClick={removeCar}>remove</button>
         </div>
