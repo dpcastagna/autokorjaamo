@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const jobSchema = mongoose.Schema({
   name: String,
-  time: String,
+  time: Number,
   status: Boolean,
   car: {
     type: mongoose.Schema.Types.ObjectId,

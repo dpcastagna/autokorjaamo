@@ -17,7 +17,7 @@ const CarForm = ({ createCar }) => {
     const carObject = {
       registration: newRegistration,
       model: newModel,
-      status: 'Vastaanotettu',
+      status: 0,
     }
     createCar(carObject)
 
@@ -27,7 +27,7 @@ const CarForm = ({ createCar }) => {
 
   return (
     <form onSubmit={addCar}>
-      <h2>create new</h2>
+      <h2>add new car</h2>
       registration:
       <input
         value={newRegistration}

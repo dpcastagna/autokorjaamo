@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const carSchema = mongoose.Schema({
   registration: String,
   model: String,
-  status: String,
+  status: Number,
   jobs: [
     {
       type: mongoose.Schema.Types.ObjectId,

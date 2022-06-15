@@ -5,7 +5,9 @@ const jwt = require('jsonwebtoken')
 
 carsRouter.get('/', async (request, response) => {
   const cars = await Car
-    .find({}).populate('user', { username: 1, name: 1, id: 1 })
+    .find({})
+    .populate('user', { username: 1, name: 1, id: 1 })
+    .populate('jobs', { name: 1, time: 1, status: 1, id: 1 })
   response.json(cars)
 })
 

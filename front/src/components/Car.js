@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import carService from '../services/cars'
+import Job from './Job'
 import PropTypes from 'prop-types'
 
 const Car = ({ car, user }) => {
   const carStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
+    paddingTop: 1,
+    paddingLeft: 5,
     border: 'solid',
     borderWidth: 1,
-    marginBottom: 5,
+    marginBottom: 1,
   }
-  //console.log(car.status)
+  console.log('car.jobs', car.jobs)
   const [visible, setVisible] = useState(false)
   //const [likes, setLikes] = useState(blog.likes)
   const hideWhenVisible = { display: visible ? 'none' : '' }
@@ -51,19 +52,23 @@ const Car = ({ car, user }) => {
     }
   }
 
-  return(
+  return (
     <div style={carStyle}>
-
       <div style={hideWhenVisible}>
         {car.registration} {car.model}<button onClick={toggleVisibility}>view</button>
       </div>
       <div style={showWhenVisible}>
         {car.registration} {car.model}
         <button onClick={toggleVisibility}>hide</button><br />
-        {car.user.name}<br />
-        {car.status}
+        mechanic: {car.user.name}<br />
+        status: {car.status}<br />
+        jobs: {car.jobs.map(job =>
+          <div key={job.id}>
+            <Job job={job} />
+          </div>
+        )}
         <div style={showRemove}>
-          <button onClick={removeCar}>remove</button>
+          <button onClick={removeCar}>remove car</button>
         </div>
       </div>
     </div>
