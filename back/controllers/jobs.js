@@ -26,16 +26,16 @@ jobsRouter.post('/', async (request, response, next) => {
         return response.status(401).json({ error: 'token missing or invalid' })
     }*/
     const car = await Car.findById(body.id)
-
+    console.log('bodyssa', body)
     const job = new Job({
         name: body.name,
         time: body.time,
         status: body.status,
-        car: body._id,
+        car: body.id,
     })
 
     const savedJob = await job.save()
-    console.log(savedJob)
+    console.log('saveJob', savedJob)
     car.jobs = car.jobs.concat(savedJob._id)
     await car.save()
 
@@ -50,16 +50,16 @@ jobsRouter.delete('/:id', async (request, response) => {
 jobsRouter.put('/:id', async (request, response, next) => {
     const body = request.body
 
-    const car = {
-        registration: body.registration,
-        model: body.model,
+    const job = {
+        name: body.name,
+        time: body.time,
         status: body.status,
-        user: body.user,
+        car: body.id,
     }
 
-    const updatedCar = await Car.findByIdAndUpdate(request.params.id, car, { new: true })
+    const updatedJob = await Job.findByIdAndUpdate(request.params.id, job, { new: true })
 
-    response.json(updatedCar)
+    response.json(updatedJob)
 })
 
 module.exports = jobsRouter

@@ -5,10 +5,10 @@ const CarForm = ({ createCar }) => {
   const [newRegistration, setNewRegistration] = useState('')
   const [newModel, setNewModel] = useState('')
 
-  const handleTitleChange = (event) => {
+  const handleRegistrationChange = (event) => {
     setNewRegistration(event.target.value)
   }
-  const handleAuthorChange = (event) => {
+  const handleModelChange = (event) => {
     setNewModel(event.target.value)
   }
 
@@ -31,12 +31,12 @@ const CarForm = ({ createCar }) => {
       registration:
       <input
         value={newRegistration}
-        onChange={handleTitleChange}
+        onChange={handleRegistrationChange}
       /> <br />
       model:
       <input
         value={newModel}
-        onChange={handleAuthorChange}
+        onChange={handleModelChange}
       /> <br />
       <button type="submit">create</button>
     </form>

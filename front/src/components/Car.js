@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import carService from '../services/cars'
 import Job from './Job'
+import jobService from '../services/jobs'
+import Togglable from './Togglable'
+import JobForm from './JobForm'
 import PropTypes from 'prop-types'
 
 const Car = ({ car, user }) => {
@@ -12,6 +15,7 @@ const Car = ({ car, user }) => {
     marginBottom: 1,
   }
   console.log('car.jobs', car.jobs)
+  const [jobs, setJobs] = useState([])
   const [visible, setVisible] = useState(false)
   //const [likes, setLikes] = useState(blog.likes)
   const hideWhenVisible = { display: visible ? 'none' : '' }
@@ -24,6 +28,10 @@ const Car = ({ car, user }) => {
     setVisible(!visible)
   }
 
+  useEffect(() => {
+    setJobs(car.jobs)
+  }, [])
+  console.log('jobit carista', jobs)
   /*const likeSend = (event) => {
     event.preventDefault()
 
@@ -43,7 +51,6 @@ const Car = ({ car, user }) => {
   const removeCar = (event) => {
     event.preventDefault()
     if(window.confirm(`Remove car ${car.registration} model ${car.model}`)) {
-      //console.log("jee", blog.id)
       carService
         .remove(car.id)
         .then(
@@ -51,6 +58,21 @@ const Car = ({ car, user }) => {
         )
     }
   }
+
+  const addJob = (jobObject) => {
+    jobFormRef.current.toggleVisibility()
+    jobService
+      .create(jobObject)
+      .then(returnedJob => {
+        setJobs(jobs.concat(returnedJob))
+        /*setErrorMessage(`a new car ${carObject.registration} ${carObject.model} added`)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)*/
+      })
+  }
+
+  const jobFormRef = useRef()
 
   return (
     <div style={carStyle}>
@@ -62,11 +84,14 @@ const Car = ({ car, user }) => {
         <button onClick={toggleVisibility}>hide</button><br />
         mechanic: {car.user.name}<br />
         status: {car.status}<br />
-        jobs: {car.jobs.map(job =>
+        jobs: {jobs.map(job =>
           <div key={job.id}>
             <Job job={job} />
           </div>
         )}
+        <Togglable buttonLabel="new job" ref={jobFormRef}>
+          <JobForm createJob={addJob} carId={car.id} />
+        </Togglable>
         <div style={showRemove}>
           <button onClick={removeCar}>remove car</button>
         </div>
