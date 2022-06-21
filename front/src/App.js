@@ -5,12 +5,16 @@ import Togglable from './components/Togglable'
 import CarForm from './components/CarForm'
 import carService from './services/cars'
 import loginService from './services/login'
+import userService from './services/users'
 
 const App = () => {
   const [cars, setCars] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [newName, setNewName] = useState('')
+  const [newUsername, setNewUsername] = useState('')
+  const [newPassword, setNewPassword] = useState('')
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -58,6 +62,35 @@ const App = () => {
     //window.location.reload() //reloads page after logout button press
   }
 
+  const handlecreateUser = async (event) => {
+    event.preventDefault()
+    userFormRef.current.toggleVisibility()
+    const newUser = {
+      username: newUsername,
+      name: newName,
+      password: newPassword
+    }
+    console.log(newUsername, newName, newPassword, newUser)
+    try {
+      const user = await userService.create(newUser)
+      console.log('app', user)
+
+      /*window.localStorage.setItem(
+        'loggedCarappUser', JSON.stringify(user)
+      )*/
+      //carService.setToken(user.token)
+      //setUser(user)
+      setNewName('')
+      setNewUsername('')
+      setNewPassword('')
+    } catch (exception) {
+      setErrorMessage('wrong username or password')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+  }
+
   const addCar = (carObject) => {
     carFormRef.current.toggleVisibility()
     carService
@@ -95,7 +128,41 @@ const App = () => {
     </form>
   )
 
+  const createUserForm = () => (
+    <form onSubmit={handlecreateUser}>
+      <div>
+        name
+        <input
+          type="text"
+          value={newName}
+          name="name"
+          onChange={({ target }) => setNewName(target.value)}
+        />
+      </div>
+      <div>
+        username
+        <input
+          type="text"
+          value={newUsername}
+          name="username"
+          onChange={({ target }) => setNewUsername(target.value)}
+        />
+      </div>
+      <div>
+        password
+        <input
+          type="password"
+          value={newPassword}
+          name="password"
+          onChange={({ target }) => setNewPassword(target.value)}
+        />
+      </div>
+      <button type="submit">create</button>
+    </form>
+  )
+
   const carFormRef = useRef()
+  const userFormRef = useRef()
 
   if (user === null) {
     return (
@@ -103,6 +170,10 @@ const App = () => {
         <h2>login to application</h2>
         <Notification message={errorMessage} class="error" />
         {loginForm()}
+        <br />
+        <Togglable buttonLabel="new user" ref={userFormRef}>
+          {createUserForm()}
+        </Togglable>
       </div>
     )
   }

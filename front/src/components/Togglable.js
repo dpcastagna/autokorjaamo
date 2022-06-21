@@ -16,7 +16,7 @@ const Togglable = forwardRef((props, ref) => {
       toggleVisibility
     }
   })
-  console.log(props)
+  //console.log(props)
 
   return (
     <div>
