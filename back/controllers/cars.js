@@ -48,14 +48,15 @@ carsRouter.delete('/:id', async (request, response) => {
   response.status(204).end()
 })
 
-carsRouter.put('/:id', async (request, response, next) => {
+carsRouter.put('/:id', async (request, response) => {
   const body = request.body
-  
+  //console.log(body)
   const car = {
     registration: body.registration,
     model: body.model,
     status: body.status,
-    user: body.user,
+    user: body.user.id,
+    jobs: body.jobs,
   }
 
   const updatedCar = await Car.findByIdAndUpdate(request.params.id, car, { new: true })

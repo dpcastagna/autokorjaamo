@@ -14,7 +14,9 @@ const Car = ({ car, user }) => {
     borderWidth: 1,
     marginBottom: 1,
   }
-  console.log('car.jobs', car.jobs)
+  console.log('car', car)
+  const [status, setStatus] = useState(car.status)
+  const [newStatus, setNewStatus] = useState('')
   const [jobs, setJobs] = useState([])
   const [visible, setVisible] = useState(false)
   //const [likes, setLikes] = useState(blog.likes)
@@ -32,21 +34,6 @@ const Car = ({ car, user }) => {
     setJobs(car.jobs)
   }, [])
   console.log('jobit carista', jobs)
-  /*const likeSend = (event) => {
-    event.preventDefault()
-
-    const carObject = {
-      registration: car.registration,
-      model: car.model,
-      user: user._id,
-    }
-
-    carService
-      .update(car.id, carObject)
-      .then(
-        //setLikes(blog.likes += 1)
-      )
-  }*/
 
   const removeCar = (event) => {
     event.preventDefault()
@@ -57,6 +44,31 @@ const Car = ({ car, user }) => {
           window.location.reload()
         )
     }
+  }
+
+  const moveCar = (event) => {
+    event.preventDefault()
+    setStatus(status + 1)
+    console.log(status)
+    const carObject = {
+      id: car.id,
+      jobs: car.jobs,
+      model: car.model,
+      registration: car.registration,
+      user: car.user,
+      status: Number(newStatus)
+    }
+    console.log(carObject)
+    carService
+      .update(car.id, carObject)
+      .then(
+        setNewStatus('')
+      )
+    setStatus(newStatus)
+  }
+
+  const handleStatusChange = (event) => {
+    setNewStatus(event.target.value)
   }
 
   const addJob = (jobObject) => {
@@ -82,8 +94,16 @@ const Car = ({ car, user }) => {
       <div style={showWhenVisible}>
         {car.registration} {car.model}
         <button onClick={toggleVisibility}>hide</button><br />
+        <form onSubmit={moveCar}>
+          new status:
+          <input
+            value={newStatus}
+            onChange={handleStatusChange}
+          /> <br />
+          <button type="submit">move car</button>
+        </form>
         mechanic: {car.user.name}<br />
-        status: {car.status}<br />
+        status: {status}<br />
         jobs: {jobs.map(job =>
           <div key={job.id}>
             <Job job={job} />

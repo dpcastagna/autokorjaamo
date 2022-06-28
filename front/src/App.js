@@ -183,8 +183,7 @@ const App = () => {
       <Notification message={errorMessage} class="success" />
       <form onSubmit={handleLogout}>
         <p>
-          {user.name} logged in
-          <button type="submit">logout</button>
+          {user.name} logged in <button type="submit">logout</button>
         </p>
       </form>
       <Togglable buttonLabel="new car" ref={carFormRef}>
