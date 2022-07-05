@@ -3,12 +3,15 @@ import Car from './components/Car'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import CarForm from './components/CarForm'
+import CategoryForm from './components/CategoryForm'
 import carService from './services/cars'
+import categoryService from './services/categorys'
 import loginService from './services/login'
 import userService from './services/users'
 
 const App = () => {
   const [cars, setCars] = useState([])
+  const [categorys, setCategorys] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -20,6 +23,12 @@ const App = () => {
   useEffect(() => {
     carService.getAll().then(cars =>
       setCars(cars)
+    )
+  }, [])
+
+  useEffect(() => {
+    categoryService.getAll().then(categorys =>
+      setCategorys(categorys)
     )
   }, [])
 
@@ -104,6 +113,19 @@ const App = () => {
       })
   }
 
+  const addCategory = (categoryObject) => {
+    categoryFormRef.current.toggleVisibility()
+    categoryService
+      .create(categoryObject)
+      .then(returnedCategory => {
+        setCategorys(categorys.concat(returnedCategory))
+        setErrorMessage(`a new category ${categoryObject.name} added`)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      })
+  }
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
@@ -161,8 +183,9 @@ const App = () => {
     </form>
   )
 
-  const carFormRef = useRef()
   const userFormRef = useRef()
+  const carFormRef = useRef()
+  const categoryFormRef = useRef()
 
   if (user === null) {
     return (
@@ -189,13 +212,17 @@ const App = () => {
       <Togglable buttonLabel="new car" ref={carFormRef}>
         <CarForm createCar={addCar} />
       </Togglable>
+      <Togglable buttonLabel="new category" ref={categoryFormRef}>
+        <CategoryForm createCategory={addCategory} />
+      </Togglable>
+      {categorys.length}
       <table>
         <tr>
-          <th>VASTAANOTETTU</th>
-          <th>TYÖNALLA</th>
-          <th>ODOTTAA</th>
-          <th>PESULA</th>
-          <th>VALMIS</th>
+          <th>ENTERED</th>
+          <th>IN PROGRESS</th>
+          <th>ON HOLD</th>
+          <th>CAR WASH</th>
+          <th>DONE</th>
         </tr>
         <tr>
           <td>

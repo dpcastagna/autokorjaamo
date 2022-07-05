@@ -62,9 +62,9 @@ const Car = ({ car, user }) => {
     carService
       .update(car.id, carObject)
       .then(
-        setNewStatus('')
+        setStatus(newStatus)
       )
-    setStatus(newStatus)
+    setNewStatus('')
   }
 
   const handleStatusChange = (event) => {

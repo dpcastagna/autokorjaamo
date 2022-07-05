@@ -6,7 +6,7 @@ const Category = require('../models/category')
 categorysRouter.post('/', async (request, response) => {
   const { name, number, color } = request.body
 
-  const existingCategory = await User.findOne({ number })
+  const existingCategory = await Category.findOne({ number })
   if (existingCategory) {
     return response.status(400).json({
       error: 'category number must be unique'
@@ -32,6 +32,20 @@ categorysRouter.get('/', async (request, response) => {
       .find({})
       //.populate('cars', { registration: 1, model: 1, jobs: 1, id: 1 })
     response.json(categorys)
+})
+
+categorysRouter.put('/:id', async (request, response) => {
+  const body = request.body
+
+  const category = {
+      name: body.name,
+      number: body.number,
+      color: body.color,
+  }
+
+  const updatedCategory = await Category.findByIdAndUpdate(request.params.id, category, { new: true })
+
+  response.json(updatedCategory)
 })
 
 module.exports = categorysRouter

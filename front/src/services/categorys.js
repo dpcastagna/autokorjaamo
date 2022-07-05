@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = '/api/users'
+const baseUrl = '/api/categorys'
 /*
 let token = null
 
@@ -16,7 +16,7 @@ const create = async newObject => {
   /*const config = {
     headers: { Authorization: token },
   }*/
-  //console.log('front newUser:', newObject)
+
   const response = await axios.post(baseUrl, newObject)//, config)
   return response.data
 }
