@@ -5,7 +5,7 @@ import jobService from '../services/jobs'
 const Job = (props) => {
   const [job, setJob] = useState(props.job)
   const [done, setDone] = useState(job.status)
-  console.log('jobissa', job)
+  //console.log('jobissa', job)
   const hideWhenDone = { display: done ? 'none' : '' }
   const showWhenDone = { display: done ? '' : 'none' }
 

@@ -17,6 +17,10 @@ h1 {
   flex-direction: column;
 }
 
+#table {
+  width: 100%;
+}
+
 .vastaanotettu {
   background-color: grey;
   padding-top: 5px;

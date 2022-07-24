@@ -187,6 +187,8 @@ const App = () => {
   const carFormRef = useRef()
   const categoryFormRef = useRef()
 
+  const catLength = String(100 / categorys.length) + '%'
+
   if (user === null) {
     return (
       <div>
@@ -215,73 +217,67 @@ const App = () => {
       <Togglable buttonLabel="new category" ref={categoryFormRef}>
         <CategoryForm createCategory={addCategory} />
       </Togglable>
-      {categorys.length}
-      <table>
-        <tr>
-          <th>ENTERED</th>
-          <th>IN PROGRESS</th>
-          <th>ON HOLD</th>
-          <th>CAR WASH</th>
-          <th>DONE</th>
-        </tr>
-        <tr>
-          <td>
-            <div className="vastaanotettu">
-              {cars.sort((a, b) => {
-                return (a.likes > b.likes) ? -1 : 1
-              }).map(car =>
-                <div key={car.id}>
-                  <Car key={car.id} car={car} user={user} /> <br />
-                </div>
-              )}
-            </div>
-          </td>
-          <td>
-            <div className="tyonalla">
-              {cars.sort((a, b) => {
-                return (a.likes > b.likes) ? -1 : 1
-              }).map(car =>
-                <div key={car.id}>
-                  <Car key={car.id} car={car} user={user} /> <br />
-                </div>
-              )}
-            </div>
-          </td>
-          <td>
-            <div className="odottaa">
-              {cars.sort((a, b) => {
-                return (a.likes > b.likes) ? -1 : 1
-              }).map(car =>
-                <div key={car.id}>
-                  <Car key={car.id} car={car} user={user} /> <br />
-                </div>
-              )}
-            </div>
-          </td>
-          <td>
-            <div className="pesula">
-              {cars.sort((a, b) => {
-                return (a.likes > b.likes) ? -1 : 1
-              }).map(car =>
-                <div key={car.id}>
-                  <Car key={car.id} car={car} user={user} /> <br />
-                </div>
-              )}
-            </div>
-          </td>
-          <td>
-            <div className="valmis">
-              {cars.sort((a, b) => {
-                return (a.likes > b.likes) ? -1 : 1
-              }).map(car =>
-                <div key={car.id}>
-                  <Car key={car.id} car={car} user={user} /> <br />
-                </div>
-              )}
-            </div>
-          </td>
-        </tr>
-      </table>
+      <div >
+        {/*catLength = 100 / {categorys.length} <br />*/}
+        <table id="table">
+          <thead>
+            {categorys.sort((a, b) => {
+              return (a.number > b.number) ? 1 : -1
+            }).map(category => {
+              const categoryStyle = {
+                backgroundColor: category.color,
+                paddingTop: 1,
+                fontSize: 15,
+                display: 'flex',
+                flexDirection: 'column',
+                color: 'black',
+              }
+              return(
+                <th key={category.id} style={{ width: catLength }}>
+                  <div style={categoryStyle}>
+                    {category.name.toUpperCase()} {category.number} {category.color}
+                  </div>
+                </th>
+              )
+            }
+            )}
+          </thead>
+          <tbody>
+            {categorys.sort((a, b) => {
+              return (a.number > b.number) ? 1 : -1
+            }).map(category => {
+              const catCars = []
+              cars.forEach(car => {
+                if (car.status === category.number) {
+                  catCars.push(car)
+                  //console.log(car.status)
+                }
+              })
+              console.log('catCars', catCars, category.number)
+              const carStyle = {
+                backgroundColor: category.color,
+                paddingTop: 1,
+                fontSize: 15,
+                display: 'flex',
+                flexDirection: 'column',
+                color: 'black',
+              }
+              return(
+                <td key={category.id} style={{ width: catLength }}>
+                  <div style={carStyle}>
+                    {catCars.map(car =>
+                      <div key={car.id}>
+                        <Car key={car.id} car={car} user={user} />
+                      </div>
+                    )}
+                  </div>
+                </td>
+              )
+            }
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

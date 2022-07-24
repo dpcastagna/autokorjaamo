@@ -14,7 +14,7 @@ const Car = ({ car, user }) => {
     borderWidth: 1,
     marginBottom: 1,
   }
-  console.log('car', car)
+  //console.log('car', car)
   const [status, setStatus] = useState(car.status)
   const [newStatus, setNewStatus] = useState('')
   const [jobs, setJobs] = useState([])
@@ -33,7 +33,7 @@ const Car = ({ car, user }) => {
   useEffect(() => {
     setJobs(car.jobs)
   }, [])
-  console.log('jobit carista', jobs)
+  //console.log('jobit carista', jobs)
 
   const removeCar = (event) => {
     event.preventDefault()
@@ -49,7 +49,7 @@ const Car = ({ car, user }) => {
   const moveCar = (event) => {
     event.preventDefault()
     setStatus(status + 1)
-    console.log(status)
+    //console.log(status)
     const carObject = {
       id: car.id,
       jobs: car.jobs,
@@ -58,13 +58,14 @@ const Car = ({ car, user }) => {
       user: car.user,
       status: Number(newStatus)
     }
-    console.log(carObject)
+    //console.log(carObject)
     carService
       .update(car.id, carObject)
       .then(
         setStatus(newStatus)
       )
     setNewStatus('')
+    window.location.reload()
   }
 
   const handleStatusChange = (event) => {
