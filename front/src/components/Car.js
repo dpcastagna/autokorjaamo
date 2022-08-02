@@ -90,11 +90,10 @@ const Car = ({ car, user }) => {
   return (
     <div style={carStyle}>
       <div style={hideWhenVisible}>
-        {car.registration} {car.model}<button onClick={toggleVisibility}>view</button>
+        {car.registration} {car.model} <button onClick={toggleVisibility}>view</button>
       </div>
       <div style={showWhenVisible}>
-        {car.registration} {car.model}
-        <button onClick={toggleVisibility}>hide</button><br />
+        {car.registration} {car.model} <button onClick={toggleVisibility}>hide</button><br />
         <form onSubmit={moveCar}>
           new status:
           <input

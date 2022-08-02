@@ -206,18 +206,31 @@ const App = () => {
   return (
     <div id="app">
       <Notification message={errorMessage} class="success" />
-      <form onSubmit={handleLogout}>
-        <p>
-          {user.name} logged in <button type="submit">logout</button>
-        </p>
-      </form>
-      <Togglable buttonLabel="new car" ref={carFormRef}>
-        <CarForm createCar={addCar} />
-      </Togglable>
-      <Togglable buttonLabel="new category" ref={categoryFormRef}>
-        <CategoryForm createCategory={addCategory} />
-      </Togglable>
-      <div >
+      <table>
+        <center>
+          <thead><th>CAR REPAIR INC</th></thead>
+          <tbody>
+            <td>
+              <form onSubmit={handleLogout}>
+                <p>
+                  {user.name} logged in <button type="submit">logout</button>
+                </p>
+              </form>
+            </td>
+            <td>
+              <Togglable buttonLabel="new car" ref={carFormRef}>
+                <CarForm createCar={addCar} />
+              </Togglable>
+            </td>
+            <td>
+              <Togglable buttonLabel="new category" ref={categoryFormRef}>
+                <CategoryForm createCategory={addCategory} />
+              </Togglable>
+            </td>
+          </tbody>
+        </center>
+      </table>
+      <div>
         {/*catLength = 100 / {categorys.length} <br />*/}
         <table id="table">
           <thead>
@@ -253,7 +266,7 @@ const App = () => {
                   //console.log(car.status)
                 }
               })
-              console.log('catCars', catCars, category.number)
+              //console.log('catCars', catCars, category.number)
               const carStyle = {
                 backgroundColor: category.color,
                 paddingTop: 1,
@@ -275,6 +288,34 @@ const App = () => {
               )
             }
             )}
+          </tbody>
+        </table>
+        <table id="table">
+          <thead>
+            <th>
+              ALL CARS
+            </th>
+          </thead>
+          <tbody>
+            <td>
+              <center>
+                {cars.map(car => {
+                  const carStyle = {
+                    backgroundColor: 'gray',
+                    paddingTop: 1,
+                    fontSize: 15,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    color: 'black',
+                  }
+                  return(
+                    <div key={car.id} style={carStyle}>
+                      <Car key={car.id} car={car} user={user} />
+                    </div>
+                  )
+                })}
+              </center>
+            </td>
           </tbody>
         </table>
       </div>
